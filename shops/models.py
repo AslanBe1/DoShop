@@ -1,4 +1,5 @@
 from decimal import Decimal
+from tkinter import image_names
 
 from django.db import models
 
@@ -17,6 +18,7 @@ class Product(models.Model):
     description = models.TextField()
     discount = models.FloatField(default=0)
     quantity = models.IntegerField(default=1)
+    image = models.ImageField(upload_to='media/', null=True, blank=True)
     rating = models.IntegerField(choices=RatingChoices.choices, default=RatingChoices.ONE)
 
     @property
@@ -27,3 +29,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    @property
+    def image_url(self):
+       return self.image.url

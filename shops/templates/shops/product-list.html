@@ -212,7 +212,7 @@
                       </a>
                       <!-- more inner pages-->
                       <ul class="nav collapse show" id="product">
-                        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link active" href="../../../app/e-commerce/product/product-list.html" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span>
                             </div>
                           </a>
@@ -224,7 +224,7 @@
                           </a>
                           <!-- more inner pages-->
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'detail' %}" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/product/product-details.html" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product details</span>
                             </div>
                           </a>
@@ -1713,7 +1713,7 @@
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="navbarDropdownUser">
-                  <div class="xbg-white dark__bg-1000 rounded-2 py-2">
+                  <div class="bg-white dark__bg-1000 rounded-2 py-2">
                     <a class="dropdown-item fw-bold text-warning" href="#!"><span class="fas fa-crown me-1"></span><span>Go Pro</span></a>
 
                     <div class="dropdown-divider"></div>
@@ -1758,19 +1758,18 @@
           <div class="card">
             <div class="card-body p-0 overflow-hidden">
               <div class="row g-0">
+                  {% for product in products %}
                 <div class="col-12 p-card">
                   <div class="row">
                     <div class="col-sm-5 col-md-4">
-                      <div class="position-relative h-sm-100"><a class="d-block h-100" href="{% url 'detail' %}"><img class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="{% static 'shops/assets/img/products/2.jpg' %}" alt="" /></a>
+                      <div class="position-relative h-sm-100"><a class="d-block h-100" href="{% url 'detail' product.id %}"><img class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="{{ product.image_url }}" alt="" /></a>
                         <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-index-2">New</div>
                       </div>
                     </div>
                     <div class="col-sm-7 col-md-8">
                       <div class="row">
                         <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="{% url 'detail' %}">
-                              Apple iMac Pro (27-inch with Retina 5K Display, 3.0GHz 10-core Intel Xeon W, 1TB SSD)
-                          </a></h5>
+                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="{% url 'detail' product.id %}">{{ product.name }}</a></h5>
                           <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
                           <ul class="list-unstyled d-none d-lg-block">
                             <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>16GB RAM</span></li>
@@ -1782,15 +1781,15 @@
                         </div>
                         <div class="col-lg-4 d-flex justify-content-between flex-column">
                           <div>
-                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$1199.5</h4>
+                            <h4 class="fs-1 fs-md-2 text-warning mb-0">${{ product.price }}</h4>
                             <h5 class="fs--1 text-500 mb-0 mt-1">
-                              <del>$2399 </del><span class="ms-1">-50%</span>
+                              <del>${{ product.discount_price }} </del><span class="ms-1">-{{ product.discount }}%</span>
                             </h5>
                             <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
                             </div>
                             <div class="d-none d-lg-block">
                               <p class="fs--1 mb-1">Shipping Cost: <strong>$50</strong></p>
-                              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                              <p class="fs--1 mb-1">Stock: <strong class="text-success">{{ products.quantity }}</strong>
                               </p>
                             </div>
                           </div>
@@ -1800,36 +1799,46 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 p-card">
+                  {% endfor %}
+                <div class="col-12 p-card bg-100">
                   <div class="row">
                     <div class="col-sm-5 col-md-4">
-                      <div class="position-relative h-sm-100"><a class="d-block h-100" href="{% url 'detail' %}"><img class="img-fluid fit-cover w-sm-100 h-sm-100 rounded-1 absolute-sm-centered" src="{% static 'shops/assets/img/products/4.jpg' %}" alt="" /></a>
+                      <div class="position-relative h-sm-100">
+                        <div class="swiper-container theme-slider h-100" data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
+                          <div class="swiper-wrapper h-100">
+                            <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.html"><img class="rounded-1 h-100 w-100 fit-cover" src="{% static 'shops/assets/img/products/1.jpg' %}" alt="" /></a></div>
+                            <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.html"><img class="rounded-1 h-100 w-100 fit-cover" src="{% static 'shops/assets/img/products/1-2.jpg' %}" alt="" /></a></div>
+                            <div class="swiper-slide h-100"><a class="d-block h-sm-100" href="../../../app/e-commerce/product/product-details.html"><img class="rounded-1 h-100 w-100 fit-cover" src="{% static 'shops/assets/img/products/1-3.jpg' %}" alt="" /></a></div>
+                          </div>
+                          <div class="swiper-nav">
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
+                          </div>
+                        </div>
+                        <div class="badge rounded-pill bg-success position-absolute top-0 end-0 me-2 mt-2 fs--2 z-index-2">New</div>
                       </div>
                     </div>
                     <div class="col-sm-7 col-md-8">
                       <div class="row">
                         <div class="col-lg-8">
-                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="{% url 'detail' %}">
-                              Apple iPad Air 2019 (3GB RAM, 128GB ROM, 8MP Main Camera)</a></h5>
-                          <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Mobile &amp; Tabs</a></p>
+                          <h5 class="mt-3 mt-sm-0"><a class="text-dark fs-0 fs-lg-1" href="../../../app/e-commerce/product/product-details.html">Apple MacBook Pro (15&quot; Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray (Latest Model)</a></h5>
+                          <p class="fs--1 mb-2 mb-md-3"><a class="text-500" href="#!">Computer &amp; Accessories</a></p>
                           <ul class="list-unstyled d-none d-lg-block">
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>3GB RAM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>128GB ROM</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Apple A12 Bionic (7 nm)</span></li>
-                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>iOS 12.1.3</span></li>
+                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>16GB RAM</span></li>
+                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>256GB SSD Hard Drive</span></li>
+                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Intel Core i7</span></li>
+                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Mac OS</span></li>
+                            <li><span class="fas fa-circle" data-fa-transform="shrink-12"></span><span>Space Gray</span></li>
                           </ul>
                         </div>
                         <div class="col-lg-4 d-flex justify-content-between flex-column">
                           <div>
-                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$562.5</h4>
-                            <h5 class="fs--1 text-500 mb-0 mt-1">
-                              <del>$750 </del><span class="ms-1">-25%</span>
-                            </h5>
-                            <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="fa fa-star text-300"></span><span class="fa fa-star text-300"></span><span class="ms-1">(14)</span>
+                            <h4 class="fs-1 fs-md-2 text-warning mb-0">$7199</h4>
+                            <div class="mb-2 mt-3"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1">(20)</span>
                             </div>
                             <div class="d-none d-lg-block">
-                              <p class="fs--1 mb-1">Shipping Cost: <strong>$47</strong></p>
-                              <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                              <p class="fs--1 mb-1">Shipping Cost: <strong>$65</strong></p>
+                              <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong>
                               </p>
                             </div>
                           </div>

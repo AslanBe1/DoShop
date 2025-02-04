@@ -224,7 +224,7 @@
                           </a>
                           <!-- more inner pages-->
                         </li>
-                        <li class="nav-item"><a class="nav-link active" href="{% url 'detail' %}" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link active" href="../../../app/e-commerce/product/product-details.html" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product details</span>
                             </div>
                           </a>
@@ -252,13 +252,13 @@
                         </li>
                       </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'customer' %}" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/customers.html" aria-expanded="false">
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'customer_details' %}" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/customer-details.html" aria-expanded="false">
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customer details</span>
                         </div>
                       </a>
@@ -1736,7 +1736,7 @@
                   <div class="product-slider" id="galleryTop">
                     <div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
                       <div class="swiper-wrapper h-100">
-                        <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="{% static 'shops/assets/img/products/1.jpg' %}" alt="" /></div>
+                        <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="{{ product.image_url }}" alt="" /></div>
                         <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="{% static 'shops/assets/img/products/1-2.jpg' %}" alt="" /></div>
                         <div class="swiper-slide h-100"> <img class="rounded-1 fit-cover h-100 w-100" src="{% static 'shops/assets/img/products/1-3.jpg' %}" alt="" /></div>
                         <div class="swiper-slide h-100"> <img class="rounded-1 fit-cover h-100 w-100" src="{% static 'shops/assets/img/products/1-4.jpg' %}" alt="" /></div>
@@ -1751,15 +1751,15 @@
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <h5>Apple MacBook Pro (15" Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray (Latest Model)</h5><a class="fs--1 mb-2 d-block" href="#!">Computer &amp; Accessories</a>
+                  <h5>{{ product.name }}</h5><a class="fs--1 mb-2 d-block" href="#!">Computer &amp; Accessories</a>
                   <div class="fs--2 mb-3 d-inline-block text-decoration-none"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star-half-alt text-warning star-icon"></span><span class="ms-1 text-600">(8)</span>
                   </div>
-                  <p class="fs--1">Testing conducted by Apple in October 2018 using pre-production 2.9GHz 6‑core Intel Core i9‑based 15-inch MacBook Pro systems with Radeon Pro Vega 20 graphics, and shipping 2.9GHz 6‑core Intel Core i9‑based 15‑inch MacBook Pro systems with Radeon Pro 560X graphics, both configured with 32GB of RAM and 4TB SSD.</p>
-                  <h4 class="d-flex align-items-center"><span class="text-warning me-2">$1200</span><span class="me-1 fs--1 text-500">
-                      <del class="me-1">$2400</del><strong>-50%</strong></span></h4>
+                  <p class="fs--1">{{ product.name }}</p>
+                  <h4 class="d-flex align-items-center"><span class="text-warning me-2">${{ product.discount_price }}</span><span class="me-1 fs--1 text-500">
+                      <del class="me-1">{{ product.price }}</del><strong>{{ product.discount }}%</strong></span></h4>
                   <p class="fs--1 mb-1"> <span>Shipping Cost: </span><strong>$50</strong></p>
                   <p class="fs--1">Stock: <strong class="text-success">Available</strong></p>
-                  <p class="fs--1 mb-3">Tags: <a class="ms-2" href="#!">Computer,</a><a class="ms-1" href="#!">Mac Book,</a><a class="ms-1" href="#!">Mac Book Pro,</a><a class="ms-1" href="#!">Laptop </a></p>
+                  <p class="fs--1 mb-3">Tags: <a class="ms-2" href="#!">Computer,</a><a class="ms-1" href="#!">{{ product.name }},</a><a class="ms-1" href="#!">Mac Book Pro,</a><a class="ms-1" href="#!">Laptop </a></p>
                   <div class="row">
                     <div class="col-auto pe-0">
                       <div class="input-group input-group-sm" data-quantity="data-quantity">
@@ -1784,11 +1784,7 @@
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="tab-description" role="tabpanel" aria-labelledby="description-tab">
                         <div class="mt-3">
-                          <p>Over the years, Apple has built a reputation for releasing its products with a lot of fanfare – but that didn’t exactly happen for the MacBook Pro 2018. Rather, Apple’s latest pro laptop experienced a subdued launch, in spite of it offering a notable spec upgrade over the 2017 model – along with an improved keyboard. And, as with previous generations the 15-inch MacBook Pro arrives alongside a 13-inch model.</p>
-                          <p>Apple still loves the MacBook Pro though, despite the quiet release. This is because, while the iPhone XS and iPad, along with the 12-inch MacBook, are aimed at everyday consumers, the MacBook Pro has always aimed at the creative and professional audience. This new MacBook Pro brings a level of performance (and price) unlike its more consumer-oriented devices. </p>
-                          <p>Still, Apple wants mainstream users to buy the MacBook Pro, too. So, if you’re just looking for the most powerful MacBook on the market, you’ll love this new MacBook Pro. Just keep in mind that, while the keyboard has been updated, there are still some issues with it.</p>
-                          <p>There’s enough of a difference between the two sizes when it comes to performance to warrant two separate reviews, and here we’ll be looking at how the flagship 15-inch MacBook Pro performs in 2019.</p>
-                          <p>It's build quality and design is batter than elit. Numquam excepturi a debitis, sint voluptates, nam odit vel delectus id repellendus vero reprehenderit quidem totam praesentium vitae nesciunt deserunt. Sint, veniam?</p>
+                            <p>{{ product.description }}</p>
                         </div>
                       </div>
                       <div class="tab-pane fade" id="tab-specifications" role="tabpanel" aria-labelledby="specifications-tab">
