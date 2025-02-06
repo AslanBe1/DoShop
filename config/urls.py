@@ -24,5 +24,6 @@ from config.settings import MEDIA_URL
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Uzum/', include('shops.urls')),
+    path('Customers/', include('customers.urls')),
 
 ] + static(MEDIA_URL, document_root=settings.MEDIA_ROOT)

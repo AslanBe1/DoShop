@@ -1,9 +1,21 @@
 from decimal import Decimal
-from tkinter import image_names
-
 from django.db import models
-
 # Create your models here.
+
+
+# class BaseModel(models.Model):
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     class Meta:
+#         abstract = True
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
     class RatingChoices(models.IntegerChoices):
@@ -20,6 +32,7 @@ class Product(models.Model):
     quantity = models.IntegerField(default=1)
     image = models.ImageField(upload_to='media/', null=True, blank=True)
     rating = models.IntegerField(choices=RatingChoices.choices, default=RatingChoices.ONE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='products')
 
     @property
     def discount_price(self):
@@ -34,3 +47,46 @@ class Product(models.Model):
     @property
     def image_url(self):
        return self.image.url
+
+
+class ProductImages(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    images = models.ImageField(upload_to='media/', null=True, blank=True,)
+
+    @property
+    def images_url(self):
+        return self.images
+
+
+class Attribute(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class AttributeValue(models.Model):
+    value = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.value
+
+
+class ProductAttribute(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL,related_name='product_attributes', null=True, blank=True)
+    attribute = models.ForeignKey(Attribute, on_delete=models.SET_NULL, null=True, blank=True)
+    attribute_value = models.ForeignKey(AttributeValue, on_delete=models.SET_NULL, null=True, blank=True)
+
+
+class Comment(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField()
+    content = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='comments',null=True, blank=True)
+    is_negative = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['-name']

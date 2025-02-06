@@ -33,15 +33,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shops.apps.ShopsConfig',
     'adminsortable2',
     'import_export',
+    'phonenumber_field',
+    'customers.apps.CustomersConfig',
+    'shops.apps.ShopsConfig',
 ]
 
 MIDDLEWARE = [
@@ -129,7 +132,6 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-3
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

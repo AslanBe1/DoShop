@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from import_export.admin import ImportExportModelAdmin, ImportExportMixin
 
-from shops.models import Product
+from shops.models import Product, ProductImages, Category, Attribute, AttributeValue, ProductAttribute, Comment
 
 # Register your models here.
 
@@ -23,3 +23,11 @@ class ProductModelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     def image_tag(self, obj):
         return format_html('<img src="{}" style="max-width:50px; max-height:50px"/>'.format(obj.image.url))
     image_tag.short_description = 'Image'
+
+
+admin.site.register(ProductImages)
+admin.site.register(Category)
+admin.site.register(Attribute)
+admin.site.register(AttributeValue)
+admin.site.register(ProductAttribute)
+admin.site.register(Comment)
