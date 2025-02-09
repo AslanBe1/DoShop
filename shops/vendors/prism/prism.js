@@ -801,7 +801,7 @@ var Prism = (function (_self) {
 	 * @param {string} language The name of current language.
 	 * @returns {string} The HTML representation of the token or token stream.
 	 * @memberof Token
-	 * @static
+	 * @User
 	 */
 	Token.stringify = function stringify(o, language) {
 		if (typeof o == 'string') {

@@ -33,11 +33,13 @@ def index(request, category_id:Optional[int]=None):
 
 def detail(request, pk):
     product = get_object_or_404(Product, id=pk)
+    product_image = ProductImages.objects.filter(product=product)
     comments = Comment.objects.filter(product=product,is_negative=False)
 
     context = {
         'product':product,
         'comments':comments,
+        'product_image':product_image,
     }
     return render(request,'shops/product-details.html',context=context)
 
@@ -68,7 +70,7 @@ def create_product(request):
         form = ProductModelForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('shops:index')
     else:
         form = ProductModelForm()
 
@@ -85,7 +87,7 @@ def edit_product(request, pk):
         form = ProductModelForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('detail', pk)
+            return redirect('shops:detail', pk)
 
     context = {
         'form':form,
@@ -99,7 +101,7 @@ def delete_product(request, pk):
     try:
         product = get_object_or_404(Product, id=pk)
         product.delete()
-        return redirect('index')
+        return redirect('shops:index')
     except Product.DoesNotExist as e:
         print(e)
 
@@ -111,7 +113,7 @@ def create_attribute(request):
             form = AttributeModelForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect('create_attribute')
+                return redirect('shops:create_attribute')
 
         else:
             form = AttributeModelForm()
@@ -126,10 +128,10 @@ def create_attribute(request):
 def create_attribute_value(request):
         form =  AttributeValueModelForm()
         if request.method == 'POST':
-            form = AttributeModelForm(request.POST, request.FILES)
+            form = AttributeValueModelForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect('create_attribute_value')
+                return redirect('shops:create_attribute_value')
 
         else:
             form = AttributeValueModelForm()
@@ -139,6 +141,7 @@ def create_attribute_value(request):
         }
         return render(request, 'shops/add_attribute_value.html', context)
 
+
 @login_required
 def product_attribute_value(request):
         form =  ProductAttributeForm()
@@ -146,7 +149,7 @@ def product_attribute_value(request):
             form = ProductAttributeForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect('product-attribute')
+                return redirect('shops:product-attribute')
 
         else:
             form = ProductAttributeForm()
@@ -155,4 +158,4 @@ def product_attribute_value(request):
             'form': form,
         }
 
-        return render(request, 'shops/add_attribute_value.html', context)
+        return render(request, 'shops/product-attribute.html', context)

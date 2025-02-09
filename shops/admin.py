@@ -21,7 +21,10 @@ class ProductModelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_filter = ('quantity','price','rating')
 
     def image_tag(self, obj):
-        return format_html('<img src="{}" style="max-width:50px; max-height:50px"/>'.format(obj.image.url))
+        if obj.image:
+            return format_html('<img src="{}" style="max-width:50px; max-height:50px"/>'.format(obj.image.url))
+        return ''
+
     image_tag.short_description = 'Image'
 
 

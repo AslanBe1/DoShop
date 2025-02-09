@@ -458,7 +458,7 @@ var $export = function (type, name, source) {
       };
       F[PROTOTYPE] = C[PROTOTYPE];
       return F;
-    // make static versions for prototype methods
+    // make User versions for prototype methods
     })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
     // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
     if (IS_PROTO) {
@@ -471,7 +471,7 @@ var $export = function (type, name, source) {
 // type bitmap
 $export.F = 1;   // forced
 $export.G = 2;   // global
-$export.S = 4;   // static
+$export.S = 4;   // User
 $export.P = 8;   // proto
 $export.B = 16;  // bind
 $export.W = 32;  // wrap
@@ -708,7 +708,7 @@ global.core = core;
 // type bitmap
 $export.F = 1;   // forced
 $export.G = 2;   // global
-$export.S = 4;   // static
+$export.S = 4;   // User
 $export.P = 8;   // proto
 $export.B = 16;  // bind
 $export.W = 32;  // wrap
@@ -4589,7 +4589,7 @@ var Draggable = function () {
 
   /**
    * Default plugins draggable uses
-   * @static
+   * @User
    * @property {Object} Plugins
    * @property {Announcement} Plugins.Announcement
    * @property {Focusable} Plugins.Focusable
@@ -11655,7 +11655,7 @@ var AbstractEvent = function () {
 
   /**
    * Event type
-   * @static
+   * @User
    * @abstract
    * @property type
    * @type {String}
@@ -11676,7 +11676,7 @@ var AbstractEvent = function () {
 
   /**
    * Event cancelable
-   * @static
+   * @User
    * @abstract
    * @property cancelable
    * @type {Boolean}

@@ -12223,7 +12223,7 @@ var FullCalendar = (function (exports) {
         var leftoverMargins = [];
         for (var col = 0; col < cells.length; col += 1) {
             var rects = rectsByEachCol[col];
-            // compute all static segs in singlePlacements
+            // compute all User segs in singlePlacements
             var singlePlacements = [];
             var currentHeight = 0;
             var currentMarginTop = 0;
@@ -12239,7 +12239,7 @@ var FullCalendar = (function (exports) {
                 });
                 currentHeight = rect.levelCoord + rect.thickness;
             }
-            // compute mixed static/absolute segs in multiPlacements
+            // compute mixed User/absolute segs in multiPlacements
             var multiPlacements = [];
             currentHeight = 0;
             currentMarginTop = 0;

@@ -212,7 +212,7 @@
                       </a>
                       <!-- more inner pages-->
                       <ul class="nav collapse show" id="product">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}" aria-expanded="false">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'shops:index' %}" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span>
                             </div>
                           </a>
@@ -1732,10 +1732,12 @@
                 <div class="col-lg-6 mb-4 mb-lg-0">
                   <div class="product-slider" id="galleryTop">
                     <div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
-                      <div class="swiper-wrapper h-100">
+                        <div class="swiper-wrapper h-100">
                        <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="{{ product.image_url }}" alt="" /></div>
-                          <img class="rounded-1 fit-cover h-100 w-100" src="{{ product.image_url }}" alt="Additional Product Image" />
-                      </div>
+                            {% for images in product_image %}
+                          <img class="rounded-1 fit-cover h-100 w-100" src="{{ images.images_url }}" alt="Additional Product Image" />
+                            {% endfor %} 
+                        </div>
                       <div class="swiper-nav">
                         <div class="swiper-button-next swiper-button-white"></div>
                         <div class="swiper-button-prev swiper-button-white"></div>
@@ -1745,16 +1747,16 @@
                 </div>
                 <div class="col-lg-6">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'edit_product' product.id %}" class="btn btn-sm btn-outline-primary ms-11">Edit</a>
+                    <a href="{% url 'shops:edit_product' product.id %}" class="btn btn-sm btn-outline-primary ms-11">Edit</a>
                     {% endif %}
                     <div class="col-md-6">
                     <div class="col-md-6">
                     <div>
                         {% if user.is_authenticated %}
-                            <form method="post" action="{% url 'delete_product' product.id %}" id="deleteForm">
+                            <form method="post" action="{% url 'shops:delete_product' product.id %}" id="deleteForm">
                                 {% csrf_token %}
                                 <div class="col-1" style="display: flex; gap: 10px; margin-left: 300px; margin-top: -30px">
-                                    <form method="post" action="{% url 'delete_product' product.id %}">
+                                    <form method="post" action="{% url 'shops:delete_product' product.id %}">
                                         <button type="button" class="btn btn-danger" onclick="showConfirmation()">Delete</button>
                                     </form>
                                 </div>
@@ -1912,7 +1914,7 @@
                             </div>
                             {% endfor %}
                           <div class="col-lg-6 ps-lg-5">
-                            <form method="post" action="{% url 'comment' product.id %}">
+                            <form method="post" action="{% url 'shops:comment' product.id %}">
                                 {% csrf_token %}
                               <h5 class="mb-3">Write your Review</h5>
                               <div class="mb-3">
@@ -2003,6 +2005,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </main>
     <!-- ===============================================-->

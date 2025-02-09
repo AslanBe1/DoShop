@@ -46,8 +46,9 @@ class Product(models.Model):
 
     @property
     def image_url(self):
-       return self.image.url
-
+        if self.image:
+            return self.image.url
+        return ''
 
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
