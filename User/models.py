@@ -15,12 +15,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-
-#
-#
-# class Register(models.Model):
-#     email = models.EmailField(unique=True)
-#     password = models.CharField(max_length=100)
-#
-#     def __str__(self):
-#         return self.email

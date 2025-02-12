@@ -1,6 +1,7 @@
 from audioop import reverse
 from typing import Optional
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from shops.forms import CommentModelForm, ProductModelForm, AttributeModelForm, AttributeValueModelForm, \
@@ -25,11 +26,19 @@ def index(request, category_id:Optional[int]=None):
 
     if category_id:
         products = Product.objects.filter(category_id = category_id)
+
+    paginator = Paginator(products, 2)
+    page_number = request.GET.get('page','1')
+    page_obj = paginator.get_page(page_number)
+
     context = {
+        'page_obj': page_obj,
         'products':products,
         'categories':categories,
     }
+
     return render(request,  'shops/product-list.html', context=context)
+
 
 def detail(request, pk):
     product = get_object_or_404(Product, id=pk)
