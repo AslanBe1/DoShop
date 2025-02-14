@@ -1732,13 +1732,10 @@
                 <div class="col-lg-6 mb-4 mb-lg-0">
                   <div class="product-slider" id="galleryTop">
                     <div class="swiper-container theme-slider position-lg-absolute all-0" data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
-                        <div class="swiper-wrapper h-100">
-                       <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="{{ product.image_url }}" alt="" /></div>
-                            {% for images in product_image %}
-                          <img class="rounded-1 fit-cover h-100 w-100" src="{{ images.images_url }}" alt="Additional Product Image" />
-                            {% endfor %} 
-                        </div>
-                      <div class="swiper-nav">
+                        {% for image in product.image_url %}
+                            <div class="swiper-slide h-100"><img class="rounded-1 fit-cover h-100 w-100" src="{{ product.image_url }}" alt="" /></div>
+                      {% endfor %}
+                        <div class="swiper-nav">
                         <div class="swiper-button-next swiper-button-white"></div>
                         <div class="swiper-button-prev swiper-button-white"></div>
                       </div>
@@ -1919,7 +1916,62 @@
                               <h5 class="mb-3">Write your Review</h5>
                               <div class="mb-3">
                                 <label class="form-label">Ratting: </label>
-                                <div class="d-block" data-rater='{"starSize":32,"step":0.5}'></div>
+                                        <div class="rating" id="rating-container">
+                                            <span class="star" data-value="1">&#9733;</span>
+                                            <span class="star" data-value="2">&#9733;</span>
+                                            <span class="star" data-value="3">&#9733;</span>
+                                            <span class="star" data-value="4">&#9733;</span>
+                                            <span class="star" data-value="5">&#9733;</span>
+                                        </div>
+                                        
+                                        <!-- CSS -->
+                                        <style>
+                                            .rating {
+                                                display: flex;
+                                                gap: 5px;
+                                            }
+                                            .star {
+                                                font-size: 32px;
+                                                color: gray;
+                                                cursor: pointer;
+                                            }
+                                            .star.selected {
+                                                color: gold;
+                                            }
+                                        </style>
+                                        
+                                        <!-- JavaScript -->
+                                        <script>
+                                            const stars = document.querySelectorAll('.star');
+                                        
+                                            stars.forEach(star => {
+                                                star.addEventListener('mouseover', () => {
+                                                    const value = parseInt(star.getAttribute('data-value'));
+                                                    stars.forEach(s => {
+                                                        s.style.color = parseInt(s.getAttribute('data-value')) <= value ? 'gold' : 'gray';
+                                                    });
+                                                });
+                                        
+                                                star.addEventListener('mouseout', () => {
+                                                    stars.forEach(s => {
+                                                        if (!s.classList.contains('selected')) {
+                                                            s.style.color = 'gray';
+                                                        }
+                                                    });
+                                                });
+                                        
+                                                star.addEventListener('click', () => {
+                                                    const value = parseInt(star.getAttribute('data-value'));
+                                                    stars.forEach(s => {
+                                                        if (parseInt(s.getAttribute('data-value')) <= value) {
+                                                            s.classList.add('selected');
+                                                        } else {
+                                                            s.classList.remove('selected');
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        </script>
                               </div>
                               <div class="mb-3">
                                 <label class="form-label" for="formGroupNameInput">Name:</label>

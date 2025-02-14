@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import models
+
 # Create your models here.
 
 
@@ -83,6 +84,7 @@ class Comment(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField()
     content = models.TextField()
+    rating = models.IntegerField(default=1)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='comments',null=True, blank=True)
     is_negative = models.BooleanField(default=False)
 

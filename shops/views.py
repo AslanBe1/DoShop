@@ -27,7 +27,7 @@ def index(request, category_id:Optional[int]=None):
     if category_id:
         products = Product.objects.filter(category_id = category_id)
 
-    paginator = Paginator(products, 2)
+    paginator = Paginator(products, 1)
     page_number = request.GET.get('page','1')
     page_obj = paginator.get_page(page_number)
 
@@ -42,34 +42,29 @@ def index(request, category_id:Optional[int]=None):
 
 def detail(request, pk):
     product = get_object_or_404(Product, id=pk)
-    product_image = ProductImages.objects.filter(product=product)
     comments = Comment.objects.filter(product=product,is_negative=False)
-
     context = {
         'product':product,
         'comments':comments,
-        'product_image':product_image,
     }
     return render(request,'shops/product-details.html',context=context)
 
 
 def comment(request, pk):
     product = get_object_or_404(Product, id=pk)
-    form = CommentModelForm()
     if request.method == 'POST':
-        form = CommentModelForm(request.POST)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment = request.POST.get('comment')
+        rating = request.POST.get('rating')
 
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.product = product
-            comment.save()
-            return redirect('detail', pk)
+        if not rating:
+            rating = 1
 
-    context = {
-        'product':product,
-        'form':form,
-    }
-    return render(request, 'shops/product-details.html', context=context)
+        Comment.objects.create(product=product, name=name, email=email, comment=comment, rating=int(rating))
+        return redirect('shops:detail', pk=pk)
+
+    return redirect('shops/product-details.html', pk=product.id)
 
 
 @login_required
