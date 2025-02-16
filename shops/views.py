@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView
+
 from shops.forms import CommentModelForm, ProductModelForm, AttributeModelForm, AttributeValueModelForm, \
     ProductAttributeForm
 from shops.models import Product, ProductImages, Category, ProductAttribute, Comment, Attribute, AttributeValue
@@ -52,52 +55,54 @@ def detail(request, pk):
 
 def comment(request, pk):
     product = get_object_or_404(Product, id=pk)
+    form = CommentModelForm()
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        comment = request.POST.get('comment')
-        rating = request.POST.get('rating')
+        form = CommentModelForm(request.POST)
 
-        if not rating:
-            rating = 1
-
-        Comment.objects.create(product=product, name=name, email=email, comment=comment, rating=int(rating))
-        return redirect('shops:detail', pk=pk)
-
-    return redirect('shops/product-details.html', pk=product.id)
-
-
-@login_required
-def create_product(request):
-    form =  ProductModelForm()
-    if request.method == 'POST':
-        form = ProductModelForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('shops:index')
-    else:
-        form = ProductModelForm()
-
-    context = {
-        'form': form
-    }
-    return render(request, 'shops/create-product.html', context)
-
-@login_required
-def edit_product(request, pk):
-    product = get_object_or_404(Product, id=pk)
-    form = ProductModelForm(instance=product)
-    if request.method == 'POST':
-        form = ProductModelForm(request.POST, request.FILES, instance=product)
-        if form.is_valid():
-            form.save()
+            comment = form.save(commit=False)
+            comment.product = product
+            comment.save()
             return redirect('shops:detail', pk)
 
     context = {
-        'form':form,
         'product':product,
+        'form':form,
     }
-    return render(request, 'shops/edit-product.html', context=context)
+    return render(request, 'shops/product-details.html', context=context)
+
+
+# @login_required
+# def create_product(request):
+#     form =  ProductModelForm()
+#     if request.method == 'POST':
+#         form = ProductModelForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('shops:index')
+#     else:
+#         form = ProductModelForm()
+#
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'shops/create-product.html', context)
+
+# @login_required
+# def edit_product(request, pk):
+#     product = get_object_or_404(Product, id=pk)
+#     form = ProductModelForm(instance=product)
+#     if request.method == 'POST':
+#         form = ProductModelForm(request.POST, request.FILES, instance=product)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('shops:detail', pk)
+#
+#     context = {
+#         'form':form,
+#         'product':product,
+#     }
+#     return render(request, 'shops/edit-product.html', context=context)
 
 
 @login_required
@@ -110,56 +115,88 @@ def delete_product(request, pk):
         print(e)
 
 
-@login_required
-def create_attribute(request):
-        form =  AttributeModelForm()
-        if request.method == 'POST':
-            form = AttributeModelForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                return redirect('shops:create_attribute')
+# @login_required
+# def create_attribute(request):
+#         form =  AttributeModelForm()
+#         if request.method == 'POST':
+#             form = AttributeModelForm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('shops:create_attribute')
+#
+#         else:
+#             form = AttributeModelForm()
+#
+#         context = {
+#             'form': form
+#         }
+#
+#         return render(request, 'shops/add_atribute.html', context)
+#
+# @login_required
+# def create_attribute_value(request):
+#         form =  AttributeValueModelForm()
+#         if request.method == 'POST':
+#             form = AttributeValueModelForm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('shops:create_attribute_value')
+#
+#         else:
+#             form = AttributeValueModelForm()
+#
+#         context = {
+#             'form': form
+#         }
+#         return render(request, 'shops/add_attribute_value.html', context)
+#
+#
+# @login_required
+# def product_attribute_value(request):
+#         form =  ProductAttributeForm()
+#         if request.method == 'POST':
+#             form = ProductAttributeForm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('shops:product-attribute')
+#
+#         else:
+#             form = ProductAttributeForm()
+#
+#         context = {
+#             'form': form,
+#         }
+#
+#         return render(request, 'shops/product-attribute.html', context)
+#
 
-        else:
-            form = AttributeModelForm()
 
-        context = {
-            'form': form
-        }
+class CreateProduct(CreateView):
+    model = Product
+    template_name = 'shops/create-product.html'
+    form_class = ProductModelForm
+    success_url = reverse_lazy("shops:index")
 
-        return render(request, 'shops/add_atribute.html', context)
+class EditProduct(UpdateView):
+    model = Product
+    template_name = 'shops/edit-product.html'
+    form_class = ProductModelForm
+    success_url = reverse_lazy("shops:index")
 
-@login_required
-def create_attribute_value(request):
-        form =  AttributeValueModelForm()
-        if request.method == 'POST':
-            form = AttributeValueModelForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                return redirect('shops:create_attribute_value')
+class CreateAttribute(CreateView):
+    model = Attribute
+    template_name = 'shops/add_atribute.html'
+    form_class = AttributeModelForm
+    success_url = reverse_lazy("shops:create_attribute")
 
-        else:
-            form = AttributeValueModelForm()
+class AttributeValeu(CreateView):
+    model = Attribute
+    template_name = 'shops/add_attribute_value.html'
+    form_class = AttributeValueModelForm
+    success_url = reverse_lazy("shops:create_attribute_value")
 
-        context = {
-            'form': form
-        }
-        return render(request, 'shops/add_attribute_value.html', context)
-
-
-@login_required
-def product_attribute_value(request):
-        form =  ProductAttributeForm()
-        if request.method == 'POST':
-            form = ProductAttributeForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                return redirect('shops:product-attribute')
-
-        else:
-            form = ProductAttributeForm()
-
-        context = {
-            'form': form,
-        }
-
-        return render(request, 'shops/product-attribute.html', context)
+class CreateProductAttribute(CreateView):
+    model = ProductAttribute
+    template_name = 'shops/product-attribute.html'
+    form_class = ProductAttributeForm
+    success_url = reverse_lazy("shops:product-attribute")

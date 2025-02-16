@@ -13,6 +13,17 @@ import os
 from pathlib import Path
 
 from django.template.context_processors import media
+import os
+import os
+from dotenv import load_dotenv
+
+# .env faylini yuklash
+load_dotenv()
+
+# SECRET_KEY ni .env faylidan olish
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
