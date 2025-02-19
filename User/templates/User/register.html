@@ -88,7 +88,7 @@
                       <div class="col-auto">
                         <h3>Register</h3>
                       </div>
-                      <div class="col-auto fs--1 text-600"><span class="mb-0 fw-semi-bold">Already User?</span> <span><a href="../../../pages/authentication/split/login.html">Login</a></span></div>
+                      <div class="col-auto fs--1 text-600"><span class="mb-0 fw-semi-bold">Already User?</span> <span><a href="{% url 'user:login_page' %}">Login</a></span></div>
                     </div>
                       <div>
                         {% for message in messages %}
@@ -139,7 +139,9 @@
                         <label class="form-label" for="cover-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label>
                       </div>
                       <div class="mb-3">
+                          <a href="{% url 'user:verify_code' %}">
                         <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button>
+                      </a>
                       </div>
                     </form>
                     <div class="position-relative mt-4">
