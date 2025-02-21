@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'customers.apps.CustomersConfig',
     'shops.apps.ShopsConfig',
     'User.apps.UserConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,18 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'aslanabdimuminov31@gmail.com'
 EMAIL_HOST_PASSWORD = 'logl kfwu huxf dzet'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+LOGIN_REDIRECT_URL = '/Uzum'

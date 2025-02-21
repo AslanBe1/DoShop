@@ -1494,7 +1494,8 @@
                         {% if user.is_authenticated %}
                             {% csrf_token %}
                         <a href="{% url 'shops:create_product' %}" class="btn btn-primary me-4">Create Product</a>
-                            <a href="{% url 'shops:create_attribute' %}" class="btn btn-primary me-4" style="margin-left: -25px">Create Product Attribute</a>
+                            <a href="{% url 'shops:create_attribute' %}" class="btn btn-primary me-1" style="margin-left: -25px">Create Product Attribute</a>
+                            <a href="{% url 'user:logout_page' %}" class="btn btn-outline-warning me-4">Logout</a>
                             <div style="margin-left: -25px">
                             {{ user.email | slice:"0:30" }}
                             </div>

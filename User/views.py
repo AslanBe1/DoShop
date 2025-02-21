@@ -92,7 +92,7 @@ def verify_code(request):
                 is_staff=user_data['is_staff'],
                 is_superuser=user_data['is_superuser']
             )
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.add_message(request, messages.SUCCESS, 'Your Code has been verified')
             return redirect('shops:index')
         else:
