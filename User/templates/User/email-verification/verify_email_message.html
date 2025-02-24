@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: #c2c2c2;
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+        }
+        .header {
+            margin: 0;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .content {
+            margin: 0;
+            padding: 15px;
+            background-color: #ffffff;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            text-align: left;
+        }
+        .button {
+            display: inline-block;
+            border: 0;
+            color: #ffffff;
+            background-color: #5865F2;
+            padding: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #5865F2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="header">Verify Email</h2>
+        <div class="content">
+            <p>Hi {{ user.name }},</p>
+            <p>You created an account on Delight.com, you need to verify your email. Please click on the button below to verify your email.</p>
+            <a href="{{ request.scheme }}://{{ domain }}{% url 'user:verify-email-confirm' uidb64=uid token=token %}" class="button">
+                Verify Email
+            </a>
+            <p style="margin-top: 40px;">Or you can copy the link below to your browser</p>
+            <p>{{ request.scheme }}://{{ domain }}{% url 'user:verify-email-confirm' uidb64=uid token=token %}</p>
+            <p>The Delight Team</p>
+        </div>
+        <div class="footer">
+            <p>© {% now 'Y' %} <a href="https://delighto.medium.com">Blog</a></p>
+            <p>Follow us on <a href="https://twitter.com/DelightGbolahan">Twitter</a></p>
+        </div>
+    </div>
+</body>
+</html>
