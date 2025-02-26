@@ -4,8 +4,8 @@ app_name = 'shops'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('product-detail/<int:pk>/', views.detail, name='detail'),
-    path('category-choice/<int:category_id>/', views.index, name='category'),
+    path('product-detail/<slug:slug>/', views.detail, name='detail'),
+    path('category-choice/<slug:slug>/', views.index, name='category'),
     path('product-comment/<int:pk>/', views.comment, name='comment'),
     path('create-product/', views.CreateProduct.as_view(), name='create_product'),
     path('edit-product/<int:pk>/', views.EditProduct.as_view(), name='edit_product'),

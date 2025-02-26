@@ -1,0 +1,133 @@
+{
+    "12": {
+        "id": 12,
+        "name": "Oppoq qor",
+        "price": 7777.0,
+        "stock": 1,
+        "image": "media/Xolodenik_1kvGxHK_U71iMDg.webp",
+        "description": "sgudvchjzgs",
+        "category": 4,
+        "rating": 2
+    }
+}{
+    "13": {
+        "id": 13,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_AtW8UJE.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "14": {
+        "id": 14,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_52uoSxa.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "15": {
+        "id": 15,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_cTYklcH.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "16": {
+        "id": 16,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_kUm9vb2.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "17": {
+        "id": 17,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_2MIXpRF.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "13": {
+        "id": 13,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_AtW8UJE.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "14": {
+        "id": 14,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_52uoSxa.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "15": {
+        "id": 15,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_cTYklcH.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "16": {
+        "id": 16,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_kUm9vb2.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "17": {
+        "id": 17,
+        "name": "MacBook Pro",
+        "price": 7777.0,
+        "stock": 15,
+        "image": "media/Asus_5q06nJ7_2MIXpRF.webp",
+        "description": "55155116413",
+        "category": 4,
+        "rating": 3
+    }
+}{
+    "18": {
+        "id": 18,
+        "name": "MacBook Pro",
+        "price": 777777.77,
+        "stock": 15,
+        "image": "media/MAc_fbFonCl.jpg",
+        "description": "MAc is very good",
+        "category": 1,
+        "rating": 3
+    }
+}

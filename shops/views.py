@@ -1,14 +1,13 @@
 from audioop import reverse
-from typing import Optional
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView
+from unicodedata import category
 
-from shops.forms import CommentModelForm, ProductModelForm, AttributeModelForm, AttributeValueModelForm, \
-    ProductAttributeForm
+from shops.forms import CommentModelForm, ProductModelForm, AttributeModelForm, AttributeValueModelForm, ProductAttributeForm
 from shops.models import Product, ProductImages, Category, ProductAttribute, Comment, Attribute, AttributeValue
 
 
@@ -18,7 +17,7 @@ def app1_view(request):
     url = reverse('customers:customer.html')
     return HttpResponseRedirect(url)
 
-def index(request, category_id:Optional[int]=None):
+def index(request, slug=None):
     categories = Category.objects.all()
     products = Product.objects.all()
     product_attributes = ProductAttribute.objects.filter()
@@ -27,8 +26,8 @@ def index(request, category_id:Optional[int]=None):
     if search_query:
         products = Product.objects.filter(name__icontains=search_query)
 
-    if category_id:
-        products = Product.objects.filter(category_id = category_id)
+    if slug:
+        products = Product.objects.filter(category__slug=slug)
 
     paginator = Paginator(products, 1)
     page_number = request.GET.get('page','1')
@@ -43,8 +42,8 @@ def index(request, category_id:Optional[int]=None):
     return render(request,  'shops/product-list.html', context=context)
 
 
-def detail(request, pk):
-    product = get_object_or_404(Product, id=pk)
+def detail(request, slug=None):
+    product = get_object_or_404(Product, category__slug=slug)
     comments = Comment.objects.filter(product=product,is_negative=False)
     context = {
         'product':product,

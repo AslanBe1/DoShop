@@ -19,6 +19,8 @@ class ProductModelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('name', 'price','rating','quantity','description','discount','image_tag')
     search_fields = ('name', 'price')
     list_filter = ('quantity','price','rating')
+    prepopulated_fields = {'slug': ('name',)}
+
 
     def image_tag(self, obj):
         if obj.image:
@@ -27,9 +29,20 @@ class ProductModelAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     image_tag.short_description = 'Image'
 
+class ProductInline(admin.TabularInline):
+    model = Product
+
+@admin.register(Category)
+class CategoryModelAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
+
+    inlines = [
+        ProductInline
+    ]
 
 admin.site.register(ProductImages)
-admin.site.register(Category)
 admin.site.register(Attribute)
 admin.site.register(AttributeValue)
 admin.site.register(ProductAttribute)

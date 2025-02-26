@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import models
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -12,7 +13,13 @@ from django.db import models
 #         abstract = True
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.slug:
+            self.slug = slugify(self.name)
+            super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -33,7 +40,14 @@ class Product(models.Model):
     quantity = models.IntegerField(default=1)
     image = models.ImageField(upload_to='media/', null=True, blank=True)
     rating = models.IntegerField(choices=RatingChoices.choices, default=RatingChoices.ONE)
+    slug = models.SlugField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='products')
+
+    def save(self, *args, **kwargs):
+        if self.slug:
+            self.slug = slugify(self.name)
+            super(Product, self).save(*args, **kwargs)
+
 
     @property
     def discount_price(self):
