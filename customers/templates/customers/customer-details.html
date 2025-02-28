@@ -251,13 +251,13 @@
                         </li>
                       </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'customer' %}" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'customers:customer' %}" aria-expanded="false">
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span>
                         </div>
                       </a>
                       <!-- more inner pages-->
                     </li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'customer_details' customer.id %}" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'customers:customer_details' customer.id %}" aria-expanded="false">
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customer details</span>
                         </div>
                       </a>
@@ -1758,7 +1758,7 @@
                 <div class="col">
                   <h5 class="mb-0">Details</h5>
                 </div>
-                <div class="col-auto"><a class="btn btn-falcon-default btn-sm" href="{% url 'edit_customer' customer.id %}"><span class="fas fa-pencil-alt fs--2 me-1"></span>Update details</a></div>
+                <div class="col-auto"><a class="btn btn-falcon-default btn-sm" href="{% url 'customers:edit_customer' customer.id %}"><span class="fas fa-pencil-alt fs--2 me-1"></span>Update details</a></div>
               </div>
             </div>
             <div class="card-body bg-light border-top">

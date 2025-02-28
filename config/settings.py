@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'shops.apps.ShopsConfig',
     'User.apps.UserConfig',
     'social_django',
+    'pandas'
 ]
 
 MIDDLEWARE = [

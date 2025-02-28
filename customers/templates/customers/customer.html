@@ -83,7 +83,7 @@
 
               <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
 
-            </div><a class="navbar-brand" href="{% url 'customer' %}">
+            </div><a class="navbar-brand" href="{% url 'customers:customer' %}">
               <div class="d-flex align-items-center py-3"><img class="me-2" src="{% static 'shops/assets/img/icons/spot-illustrations/falcon.png' %}" alt="" width="40" /><span class="font-sans-serif">falcon</span>
               </div>
             </a>
@@ -251,7 +251,7 @@
                         </li>
                       </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'customer' %}" aria-expanded="false">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'customers:customer' %}" aria-expanded="false">
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span>
                         </div>
                       </a>
@@ -1650,13 +1650,27 @@
                     </div>
                   </div>
                   <div id="table-customers-replace-element">
-                        <button class="btn btn-falcon-default btn-sm" type="button" onclick="window.location.href='{% url 'create_customer' %}'">
+                        <button class="btn btn-falcon-default btn-sm" type="button" onclick="window.location.href='{% url 'customers:create_customer' %}'">
                             <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
                             <span class="d-none d-sm-inline-block ms-1">New</span>
                         </button>
                     <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Filter</span></button>
-                    <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Export</span></button>
                   </div>
+                    <br>
+                    <form action="{% url 'customers:load_details' %}">
+                        <select class="form-select" aria-label="Default select example" name="format">
+                            <option value="none" selected>...</option>
+                            <option value="json">Json</option>
+                            <option value="xlsx">XLSX</option>
+                            <option value="csv">CSV</option>
+                        </select>
+                        <br>
+                        <button class="btn btn-falcon-default btn-sm" type="submit"><span
+                                class="fas fa-external-link-alt"
+                                data-fa-transform="shrink-3 down-2"></span><span
+                                class="d-none d-sm-inline-block ms-1">Export</span>
+                        </button>
+                    </form>
                 </div>
               </div>
             </div>
@@ -1686,17 +1700,17 @@
                           <input class="form-check-input" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
                         </div>
                       </td>
-                      <td class="name align-middle white-space-nowrap py-2"><a href="{% url 'customer_details' customer.id %}">
+                      <td class="name align-middle white-space-nowrap py-2"><a href="{% url 'customers:customer_details' customer.id %}">
                           <div class="d-flex d-flex align-items-center">
                             <div class="avatar avatar-xl me-2">
                                 {% if customer.image %}
                                     <img src="{{ customer.image_url }}" alt="{{ customer.name }}" class="avatar-name rounded-circle">
                                 {% else %}
-                                <div class="avatar-name rounded-circle" href="{% url 'customer_details' customer.id %}"><span>{{ customer.name|slice:":2" }}</span></div>
+                                <div class="avatar-name rounded-circle" href="{% url 'customers:customer_details' customer.id %}"><span>{{ customer.name|slice:":2" }}</span></div>
                             {% endif %}
                             </div>
                             <div class="flex-1">
-                              <h5 class="mb-0 fs--1" href="{% url 'customer_details' customer.id %}">{{ customer.name }}</h5>
+                              <h5 class="mb-0 fs--1" href="{% url 'customers:customer_details' customer.id %}">{{ customer.name }}</h5>
                             </div>
                           </div>
                         </a></td>
@@ -1709,8 +1723,8 @@
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                           <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
                             <div class="bg-white py-2"></div>
-                                <a class="dropdown-item" href="{% url 'edit_customer' customer.id %}">Edit</a>
-                                <a class="dropdown-item text-danger" href="#" onclick="showConfirmation(event, '{% url 'delete_customer' customer.id %}')">Delete</a>
+                                <a class="dropdown-item" href="{% url 'customers:edit_customer' customer.id %}">Edit</a>
+                                <a class="dropdown-item text-danger" href="#" onclick="showConfirmation(event, '{% url 'customers:delete_customer' customer.id %}')">Delete</a>
                             </div>
                         </div>
 
