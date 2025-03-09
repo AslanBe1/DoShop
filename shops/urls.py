@@ -14,4 +14,9 @@ urlpatterns = [
     path('create-attrbute', views.CreateAttribute.as_view(), name='create_attribute'),
     path('create-attrbute-value', views.AttributeValeu.as_view(), name='create_attribute_value'),
     path('product-attribute/', views.CreateProductAttribute.as_view(), name='product-attribute'),
+
+
+    path('product-lists/', views.ProductLists.as_view(), name='product-lists'),
+    path('product-list/', views.ProductList.as_view(), name='product-list'),
+    path('product-details/<int:pk>/', views.ProductDetail.as_view(), name='product-detail'),
 ]

@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'shops.apps.ShopsConfig',
     'User.apps.UserConfig',
     'social_django',
-    'pandas'
+    'pandas',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -178,3 +179,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 LOGIN_REDIRECT_URL = '/Uzum'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
