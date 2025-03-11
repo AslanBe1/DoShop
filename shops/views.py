@@ -1,22 +1,12 @@
 from audioop import reverse
-from itertools import product
-from msvcrt import GetErrorMode
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-from requests import Response
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from rest_framework.views import APIView
 from shops.forms import CommentModelForm, ProductModelForm, AttributeModelForm, AttributeValueModelForm, ProductAttributeForm
 from shops.models import Product, ProductImages, Category, ProductAttribute, Comment, Attribute, AttributeValue
-from shops.serializers import ProductSerializer
 
 
 # Create your views here.
@@ -207,45 +197,3 @@ class CreateProductAttribute(CreateView):
     template_name = 'shops/product-attribute.html'
     form_class = ProductAttributeForm
     success_url = reverse_lazy("shops:product-attribute")
-
-
-
-class ProductLists(APIView):
-    permission_classes = [AllowAny]
-
-    def get(self, request, format=None):
-        product = Product.objects.all()
-        data = []
-        for products in product:
-            data.append({
-                'id': products.id,
-                'name': products.name,
-                'description': products.description,
-                'price': products.price,
-                'discount': products.discount,
-                'quantity': products.quantity,
-                'rating': products.rating,
-                'slug': products.slug,
-            })
-        return Response(data)
-
-
-class ProductList(APIView):
-    permission_classes = [AllowAny]
-
-    def get(self, request, format=None):
-        products = Product.objects.all()
-        serializers = ProductSerializer(products, many=True)
-
-        return Response(serializers.data, status=status.HTTP_200_OK)
-
-
-
-
-class ProductDetail(APIView):
-    permission_classes = [AllowAny]
-    def get(self, request, pk, format=None):
-        product = Product.objects.get(id=pk)
-        serializers = ProductSerializer(product)
-
-        return Response(serializers.data, status=status.HTTP_200_OK)

@@ -11,6 +11,5 @@ urlpatterns = [
     path('Customers/', include('customers.urls')),
     path('user/', include('User.urls'), name='users'),
     path('social-auth/', include('social_django.urls', namespace='social')),
-    path('api-auth/', include('rest_framework.urls'))
 
 ] + static(MEDIA_URL, document_root=settings.MEDIA_ROOT)
